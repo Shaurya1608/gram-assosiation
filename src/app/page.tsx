@@ -42,11 +42,25 @@ function GramPillLoader({
 }) {
   const [progress, setProgress] = useState(0);
   const [isLeaving, setIsLeaving] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  const onSkipRef = useRef(onSkip);
+  onCompleteRef.current = onComplete;
+  onSkipRef.current = onSkip;
+
+  const handleSkip = useCallback(() => {
+    setIsLeaving(true);
+    setTimeout(() => {
+      onSkipRef.current();
+    }, 400);
+  }, []);
 
   useEffect(() => {
     let startTime: number | null = null;
-    const duration = 2100; // 2.1s
+    const duration = 1800; // Snappy, smooth 1.8s load
     let rafId: number;
+    let timer1: NodeJS.Timeout | null = null;
+    let timer2: NodeJS.Timeout | null = null;
+    let isFinished = false;
 
     const tick = (now: number) => {
       if (!startTime) startTime = now;
@@ -56,22 +70,25 @@ function GramPillLoader({
 
       if (p < 1) {
         rafId = requestAnimationFrame(tick);
-      } else {
-        // Hold for 350ms at 100%, then slide up curtain
-        const timer1 = setTimeout(() => {
+      } else if (!isFinished) {
+        isFinished = true;
+        // Hold for 250ms at 100%, then slide up curtain smoothly
+        timer1 = setTimeout(() => {
           setIsLeaving(true);
-          const timer2 = setTimeout(() => {
-            onComplete();
-          }, 750);
-          return () => clearTimeout(timer2);
-        }, 350);
-        return () => clearTimeout(timer1);
+          timer2 = setTimeout(() => {
+            onCompleteRef.current();
+          }, 650);
+        }, 250);
       }
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, [onComplete]);
+    return () => {
+      cancelAnimationFrame(rafId);
+      if (timer1) clearTimeout(timer1);
+      if (timer2) clearTimeout(timer2);
+    };
+  }, []); // Strictly empty dependency array: runs ONCE, never loops or restarts 3 times!
 
   // Pill growth math
   const p = progress;
@@ -125,7 +142,7 @@ function GramPillLoader({
           className="h-8 sm:h-9 w-auto object-contain"
         />
         <button
-          onClick={onSkip}
+          onClick={handleSkip}
           className="px-3.5 py-1.5 rounded-full bg-[#EFF4E8] hover:bg-[#E4ECE0] text-[#1F2B1A] border border-[#1F2B1A]/15 text-xs font-semibold tracking-wider transition-colors cursor-pointer"
         >
           SKIP →
@@ -199,6 +216,20 @@ export default function Home() {
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Ensure the page always starts cleanly at top (0, 0) on load/refresh
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  const handlePreloaderComplete = useCallback(() => {
+    setShowPreloader(false);
+  }, []);
 
   // Vision & Mission slide indexes
   const [visionSlide, setVisionSlide] = useState(0);
@@ -712,8 +743,8 @@ export default function Home() {
       {/* Preloader Screen */}
       {showPreloader && (
         <GramPillLoader
-          onComplete={() => setShowPreloader(false)}
-          onSkip={() => setShowPreloader(false)}
+          onComplete={handlePreloaderComplete}
+          onSkip={handlePreloaderComplete}
         />
       )}
 

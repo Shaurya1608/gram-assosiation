@@ -56,6 +56,8 @@ export default function WaterRideLeafletMap() {
 
   // Sidebar item list ref for auto-scrolling
   const stopListRefs = useRef<{ [key: number]: HTMLButtonElement | null }>({});
+  const sidebarContainerRef = useRef<HTMLDivElement | null>(null);
+  const hasUserInteractedRef = useRef<boolean>(false);
 
   // Unique states for filter chips
   const states = useMemo(() => {
@@ -306,6 +308,7 @@ export default function WaterRideLeafletMap() {
   // Navigate to target stop with road-following animation
   const navigateToStop = useCallback(
     (targetIndex: number) => {
+      hasUserInteractedRef.current = true;
       if (targetIndex < 0 || targetIndex >= GEO_STOPS.length) return;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
@@ -439,11 +442,17 @@ export default function WaterRideLeafletMap() {
     [stopRouteIndices, speedMultiplier]
   );
 
-  // Auto-scroll sidebar list to keep active stop visible
+  // Auto-scroll sidebar list to keep active stop visible (only inside its container, NEVER hijacking the window)
   useEffect(() => {
+    if (!hasUserInteractedRef.current) return; // Never scroll on initial mount or page refresh
     const el = stopListRefs.current[activeStopIndex];
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    const container = sidebarContainerRef.current;
+    if (el && container) {
+      const elOffsetTop = el.offsetTop - container.offsetTop;
+      container.scrollTo({
+        top: Math.max(0, elOffsetTop - 24),
+        behavior: "smooth",
+      });
     }
   }, [activeStopIndex]);
 
@@ -457,6 +466,7 @@ export default function WaterRideLeafletMap() {
 
   // Play / Pause expedition tour
   const togglePlayTour = () => {
+    hasUserInteractedRef.current = true;
     if (isPlayingTour) {
       setIsPlayingTour(false);
       isPlayingTourRef.current = false;
@@ -644,7 +654,10 @@ export default function WaterRideLeafletMap() {
           </div>
 
           {/* Scrollable Destinations List */}
-          <div className="flex-1 overflow-y-auto p-1.5 flex flex-col gap-1 divide-y divide-[#1F2B1A]/5">
+          <div
+            ref={sidebarContainerRef}
+            className="flex-1 overflow-y-auto p-1.5 flex flex-col gap-1 divide-y divide-[#1F2B1A]/5"
+          >
             {filteredStops.map((stop) => {
               const isActive = stop.index === activeStopIndex;
               const isVisited = stop.index <= activeStopIndex;
