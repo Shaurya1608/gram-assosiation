@@ -228,10 +228,9 @@ export default function WaterRideLeafletMap() {
           
           <!-- Outer Frosted Halo -->
           <div class="w-8 h-8 rounded-full bg-[#F8FAF6] border-2 border-[#1F2B1A] flex items-center justify-center shadow-lg">
-            <svg class="w-4 h-4 text-[#1F2B1A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="5.5" cy="17.5" r="3.5" />
-              <circle cx="18.5" cy="17.5" r="3.5" />
-              <path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h4" />
+            <!-- Motorbike / Motorcycle Icon (Two-Wheeler Navigation) -->
+            <svg class="w-4.5 h-4.5 text-[#1F2B1A]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 11h-3.17l-1.2-2H13V7h2V5h-3c-.55 0-1 .45-1 1v3H7.82l-1.2-2H5v2h1.18l2.4 4H5c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3c0-.35-.07-.69-.18-1h4.36c-.11.31-.18.65-.18 1 0 1.66 1.34 3 3 3s3-1.34 3-3c0-.35-.07-.69-.18-1H19c1.66 0 3-1.34 3-3s-1.34-3-3-3zm-15 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-7.65-4h4.3c.3 0 .58.14.76.38l1.24 1.62H8.35l1.24-1.62c.18-.24.46-.38.76-.38z"/>
             </svg>
           </div>
         </div>
