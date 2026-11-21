@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface ImpactStory {
   id: string;
@@ -81,158 +81,193 @@ export default function LastingImpactSection({
   onPartnerClick?: (projectTitle: string) => void;
 }) {
   const [selectedStory, setSelectedStory] = useState<ImpactStory | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) =>
+      prev === 0 ? IMPACT_STORIES.length - 1 : prev - 1
+    );
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) =>
+      prev === IMPACT_STORIES.length - 1 ? 0 : prev + 1
+    );
+  }, []);
+
+  // Auto-advance slides every 5.5s unless hovered or modal is open
+  useEffect(() => {
+    if (isPaused || selectedStory) return;
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [isPaused, selectedStory, handleNext]);
 
   return (
-    <section id="impact" className="w-full bg-[#F8FAF6] py-20 sm:py-28 px-5 sm:px-8 md:px-12 border-b border-[#1F2B1A]/10">
-      <div className="max-w-7xl mx-auto flex flex-col gap-16 sm:gap-24">
-        
-        {/* Section Editorial Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF4E8] text-[#2E3D27] text-xs font-semibold tracking-wide border border-[#A9B689]/40 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-[#829461]" />
+    <section
+      id="impact"
+      className="w-full bg-[#F8FAF6] py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-b border-[#1F2B1A]/10"
+    >
+      <div className="max-w-7xl mx-auto flex flex-col gap-10 sm:gap-12">
+        {/* Clean Centered Header */}
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto gap-3">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF4E8] text-[#2E3D27] text-xs font-semibold tracking-wide border border-[#A9B689]/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6C7D51]" />
             <span>On-The-Ground Case Studies</span>
-          </div>
-
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#1F2B1A] tracking-tight">
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#1F2B1A] tracking-tight">
             Making a Lasting Impact
           </h2>
-
-          <p className="mt-3 text-sm sm:text-base text-[#5C6B55] max-w-2xl font-normal leading-relaxed">
-            Real field interventions documented across Eastern India—where barefoot engineering, democratic Jal Samitis, and values-aligned alliances solved long-standing ecological crises.
+          <p className="text-sm sm:text-base text-[#5C6B55] leading-relaxed">
+            Real field interventions documented across Eastern India—where barefoot engineering and democratic Jal Samitis solved long-standing ecological crises.
           </p>
         </div>
 
-        {/* Stories: Alternating Organic Editorial Split Layout */}
-        <div className="flex flex-col gap-16 sm:gap-24">
-          {IMPACT_STORIES.map((story, idx) => {
-            const isReversed = idx % 2 === 1;
-
-            return (
-              <div
-                key={story.id}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center ${
-                  isReversed ? "lg:grid-flow-dense" : ""
-                }`}
-              >
-                {/* Visual Image Column */}
+        {/* Single-Row Unified Carousel */}
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="overflow-hidden rounded-3xl bg-white ring-1 ring-[#1F2B1A]/10 shadow-sm">
+            <div
+              className="flex transition-transform duration-700 ease-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {IMPACT_STORIES.map((story) => (
                 <div
-                  className={`lg:col-span-6 ${
-                    isReversed ? "lg:col-start-7" : ""
-                  }`}
+                  key={story.id}
+                  className="w-full shrink-0 grid grid-cols-1 lg:grid-cols-12 items-stretch"
                 >
-                  <div className="group relative rounded-3xl overflow-hidden bg-white border border-[#DDE5D4] shadow-sm hover:shadow-md transition-all duration-500">
-                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden">
-                      <Image
-                        src={story.image}
-                        alt={story.imageAlt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover object-center group-hover:scale-103 transition-transform duration-700 ease-out"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15 pointer-events-none" />
+                  {/* Left Photo Panel */}
+                  <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[360px] lg:min-h-[470px] bg-[#1F2B1A] overflow-hidden">
+                    <Image
+                      src={story.image}
+                      alt={story.imageAlt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1F2B1A]/75 via-transparent to-[#1F2B1A]/15" />
 
-                      {/* Floating Location & Year Badges */}
-                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
-                        <span className="px-3 py-1 rounded-full text-[11px] font-semibold bg-white/95 backdrop-blur-md text-[#1F2B1A] shadow-xs">
-                          📍 {story.location}
-                        </span>
-                        <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#A9B689] text-[#1F2B1A] shadow-xs">
-                          Project Year: {story.year}
-                        </span>
-                      </div>
+                    <div className="absolute top-5 left-5 right-5 flex items-center justify-between gap-2">
+                      <span className="px-3 py-1 rounded-full text-[11px] font-semibold bg-white/95 backdrop-blur-md text-[#1F2B1A] shadow-2xs">
+                        {story.location}
+                      </span>
+                      <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#A9B689] text-[#1F2B1A] shadow-2xs">
+                        {story.year}
+                      </span>
+                    </div>
 
-                      {/* Bottom Image Caption Pill */}
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <span className="text-[11px] font-medium text-white/90 drop-shadow-sm bg-black/40 backdrop-blur-xs px-3 py-1.5 rounded-xl block truncate">
-                          {story.tagline}
-                        </span>
-                      </div>
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <p className="text-xs sm:text-sm font-medium text-white/95 drop-shadow-sm">
+                        {story.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Content Panel */}
+                  <div className="lg:col-span-6 p-7 sm:p-10 lg:p-12 flex flex-col justify-between gap-6">
+                    <div className="flex flex-col gap-4">
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-[#6C7D51]">
+                        Alliances · {story.partners.join(" · ")}
+                      </p>
+
+                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F2B1A] leading-snug tracking-tight">
+                        {story.title}
+                      </h3>
+
+                      <p className="text-sm sm:text-[15px] text-[#5C6B55] leading-[1.7]">
+                        {story.excerpt}
+                      </p>
+                    </div>
+
+                    {/* Hairline Metrics */}
+                    <div className="grid grid-cols-3 gap-4 py-4 border-y border-[#1F2B1A]/10">
+                      {story.metrics.map((m, mIdx) => (
+                        <div key={mIdx}>
+                          <div className="font-serif text-lg sm:text-2xl font-bold text-[#1F2B1A]">
+                            {m.value}
+                          </div>
+                          <div className="text-[11px] text-[#5C6B55] leading-tight mt-0.5">
+                            {m.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <button
+                        onClick={() => setSelectedStory(story)}
+                        className="px-5 py-2.5 rounded-full bg-[#2E3D27] hover:bg-[#1F2B1A] text-[#F8FAF6] text-xs font-bold tracking-wider uppercase transition-all cursor-pointer inline-flex items-center gap-2"
+                      >
+                        <span>Read Case Study</span>
+                        <span>↗</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (onPartnerClick) {
+                            onPartnerClick(story.title);
+                          } else {
+                            const el = document.getElementById("contact");
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }}
+                        className="text-xs font-semibold text-[#526639] hover:text-[#1F2B1A] transition-colors cursor-pointer"
+                      >
+                        Adopt Similar Hamlet →
+                      </button>
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Narrative Text Column */}
-                <div
-                  className={`lg:col-span-6 flex flex-col justify-between gap-5 sm:gap-6 ${
-                    isReversed ? "lg:col-start-1" : ""
+          {/* Clean Matched Bottom Controls (Prev Arrow · Indicator Dots · Next Arrow) */}
+          <div className="mt-6 flex items-center justify-center gap-5">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous case study"
+              className="w-10 h-10 rounded-full bg-white hover:bg-[#EFF4E8] text-[#1F2B1A] ring-1 ring-[#1F2B1A]/12 hover:ring-[#526639]/40 flex items-center justify-center transition-all shadow-2xs cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#526639]"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <div className="flex items-center gap-2">
+              {IMPACT_STORIES.map((story, idx) => (
+                <button
+                  key={story.id}
+                  type="button"
+                  onClick={() => setActiveIndex(idx)}
+                  aria-label={`View ${story.title}`}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer outline-none ${
+                    activeIndex === idx
+                      ? "w-8 bg-[#2E3D27]"
+                      : "w-2 bg-[#1F2B1A]/20 hover:bg-[#1F2B1A]/40"
                   }`}
-                >
-                  {/* Partner Alliances Chips */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#829461]">
-                      Alliances:
-                    </span>
-                    {story.partners.map((partner) => (
-                      <span
-                        key={partner}
-                        className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#EFF4E8] text-[#2E3D27] border border-[#A9B689]/30"
-                      >
-                        {partner}
-                      </span>
-                    ))}
-                  </div>
+                />
+              ))}
+            </div>
 
-                  {/* Title & Tagline */}
-                  <div>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1F2B1A] leading-[1.25] tracking-tight">
-                      {story.title}
-                    </h3>
-                    <p className="mt-2 text-xs sm:text-sm font-medium text-[#829461]">
-                      {story.tagline}
-                    </p>
-                  </div>
-
-                  {/* Excerpt Narrative */}
-                  <p className="text-sm sm:text-[15px] text-[#5C6B55] leading-relaxed font-normal">
-                    {story.excerpt}
-                  </p>
-
-                  {/* 3 Metric Pills */}
-                  <div className="grid grid-cols-3 gap-3 py-3 border-y border-[#DDE5D4]">
-                    {story.metrics.map((m, mIdx) => (
-                      <div
-                        key={mIdx}
-                        className={mIdx < 2 ? "border-r border-[#DDE5D4] pr-2" : ""}
-                      >
-                        <div className="text-lg sm:text-xl font-bold text-[#1F2B1A]">
-                          {m.value}
-                        </div>
-                        <div className="text-[11px] text-[#5C6B55] leading-tight mt-0.5 font-medium">
-                          {m.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex items-center gap-4 pt-1">
-                    <button
-                      onClick={() => setSelectedStory(story)}
-                      className="px-5 py-2.5 rounded-full bg-[#2E3D27] hover:bg-[#1F2B1A] text-[#F8FAF6] text-xs font-semibold tracking-wide transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
-                    >
-                      <span>Read Case Study</span>
-                      <span className="text-sm">↗</span>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        if (onPartnerClick) {
-                          onPartnerClick(story.title);
-                        } else {
-                          const el = document.getElementById("contact");
-                          if (el) el.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }}
-                      className="text-xs font-semibold text-[#829461] hover:text-[#1F2B1A] transition-colors cursor-pointer flex items-center gap-1"
-                    >
-                      <span>Adopt Similar Hamlet</span>
-                      <span>→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next case study"
+              className="w-10 h-10 rounded-full bg-white hover:bg-[#EFF4E8] text-[#1F2B1A] ring-1 ring-[#1F2B1A]/12 hover:ring-[#526639]/40 flex items-center justify-center transition-all shadow-2xs cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#526639]"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 

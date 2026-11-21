@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { DM_Sans, Lora } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const lora = Lora({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-lora",
+  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${lora.variable} font-sans min-h-full antialiased scroll-smooth bg-[#F8FAF6]`}>
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} font-sans min-h-full antialiased scroll-smooth bg-[#F8FAF6]`}>
       <head>
         <link
           rel="stylesheet"
