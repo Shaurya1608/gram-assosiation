@@ -517,221 +517,291 @@ export default function Home() {
   ];
 
   const renderWhatDrivesUsContent = (isInsideHeroCard = false) => (
-    <div
-      className={`max-w-7xl mx-auto flex flex-col justify-between w-full ${
-        isInsideHeroCard
-          ? "h-full pt-16 sm:pt-20 pb-5 sm:pb-7 gap-4 sm:gap-5"
-          : "gap-10 sm:gap-14"
-      }`}
-    >
-      {/* 1. TOP HEADER ROW: Left Pill + Right Strong Headline */}
-      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 sm:gap-8">
-        <div className="shrink-0">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#1F2B1A]/15 text-[#1F2B1A] text-xs font-semibold shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-[#829461]" />
-            <span>About us</span>
+    <div className="max-w-7xl mx-auto flex flex-col gap-12 sm:gap-16 w-full">
+      {/* 1. BALANCED EDITORIAL HEADER ROW */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+        {/* Left Column: Eyebrow + Strong Headline + Lead Text */}
+        <div className="lg:col-span-7 flex flex-col items-start">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF4E8] text-[#2E3D27] text-xs font-semibold tracking-wide border border-[#A9B689]/40 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#6C7D51] animate-pulse" />
+            <span>About GRAM Association</span>
           </div>
+
+          <h2 className="mt-4 font-serif text-[#1F2B1A] font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] leading-[1.22] tracking-tight">
+            Rooted in India&apos;s Villages.{" "}
+            <span className="text-[#526639] font-normal italic">
+              Empowering Self-Reliant Communities.
+            </span>
+          </h2>
+
+          <p className="mt-4 text-sm sm:text-base text-[#5C6B55] leading-relaxed max-w-2xl font-normal">
+            Inspired by Mahatma Gandhi&apos;s conviction that &ldquo;the soul of India lives in its villages,&rdquo; GRAM Association partners with tribal and marginalized communities to co-create decentralized water sovereignty, grassroots fellowships, and self-governed rural institutions.
+          </p>
         </div>
 
-        <h2
-          className={`font-serif text-[#1F2B1A] font-medium leading-[1.28] tracking-tight max-w-2xl md:text-right ${
-            isInsideHeroCard
-              ? "text-lg sm:text-xl md:text-2xl"
-              : "text-2xl sm:text-3xl lg:text-[34px]"
-          }`}
-        >
-          From basic healthcare to quality education support for underprivileged
-          communities to breaking the cycle of generational poverty
-        </h2>
-      </div>
+        {/* Right Column: Frosted Gandhian Vision Card */}
+        <div className="lg:col-span-5 h-full">
+          <div className="h-full rounded-2xl p-6 sm:p-7 bg-[#F8FAF6] border border-[#1F2B1A]/10 shadow-2xs flex flex-col justify-between gap-4">
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-[#526639]">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#526639]" />
+                Guiding Philosophy
+              </span>
+              <span className="text-[11px] font-mono text-[#5C6B55]">Est. 1999</span>
+            </div>
 
-      {/* 2. FOUR-COLUMN HORIZONTAL STATS ROW */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 py-4 sm:py-6 border-y border-[#1F2B1A]/10">
-        <div className="sm:border-r border-[#1F2B1A]/10 pr-2 sm:pr-4">
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1F2B1A]">23+</div>
-          <div className="text-xs sm:text-[13px] text-[#5C6B55] mt-1 font-medium">Local volunteers</div>
-        </div>
-        <div className="sm:border-r border-[#1F2B1A]/10 sm:px-4">
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1F2B1A]">25+</div>
-          <div className="text-xs sm:text-[13px] text-[#5C6B55] mt-1 font-medium">Years of trust</div>
-        </div>
-        <div className="sm:border-r border-[#1F2B1A]/10 sm:px-4">
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1F2B1A]">100%</div>
-          <div className="text-xs sm:text-[13px] text-[#5C6B55] mt-1 font-medium">Safety compliance record</div>
-        </div>
-        <div className="sm:pl-4">
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1F2B1A]">240+</div>
-          <div className="text-xs sm:text-[13px] text-[#5C6B55] mt-1 font-medium">Lives transformed</div>
+            <blockquote className="font-serif italic text-base sm:text-[17px] text-[#1F2B1A] leading-relaxed">
+              &ldquo;Real, lasting transformation cannot be delivered from above—it must blossom from within through community ownership, traditional wisdom, and dignity.&rdquo;
+            </blockquote>
+
+            <div className="flex items-center justify-between pt-3 border-t border-[#1F2B1A]/8 text-xs text-[#5C6B55]">
+              <span className="font-medium text-[#1F2B1A]">Gandhian Self-Reliance</span>
+              <span className="font-medium text-[#526639]">Chota Nagpur &amp; Beyond</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 3. THREE BENTO CARDS (Water Blue, Center Photo, Green Livelihood) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
-        {/* Card 1 (Left): Light Blue Mist Tint */}
-        <div className="bg-[#EFF4E8] rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-[#4E7882]/15 shadow-xs min-h-[260px] sm:min-h-[290px]">
-          <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-full bg-white shadow-xs flex items-center justify-center text-[#4E7882]">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
-              </svg>
+      {/* 2. REFINED FOUR-COLUMN METRIC TILES */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
+        {[
+          {
+            value: "25+ Years",
+            title: "Grassroots Trust",
+            desc: "Continuous community leadership & institutional capacity",
+          },
+          {
+            value: "7,200+ KM",
+            title: "The Water Ride",
+            desc: "Expedition mapping indigenous wisdom across 9 Indian states",
+          },
+          {
+            value: "100%",
+            title: "Community Owned",
+            desc: "Zero-power, gravity-fed sustainable infrastructure",
+          },
+          {
+            value: "15,000+",
+            title: "Lives Empowered",
+            desc: "Tribal families permanently protected from distress migration",
+          },
+        ].map((stat, idx) => (
+          <div
+            key={idx}
+            className="p-4 sm:p-5 rounded-2xl bg-[#F8FAF6] border border-[#1F2B1A]/8 hover:border-[#829461]/40 hover:bg-white transition-all duration-200 shadow-2xs group flex flex-col justify-between"
+          >
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-[#1F2B1A] tracking-tight group-hover:text-[#526639] transition-colors">
+                {stat.value}
+              </div>
+              <div className="text-xs sm:text-[13px] font-bold text-[#2E3D27] mt-1">
+                {stat.title}
+              </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-bold text-[#1F2B1A] tracking-tight">
-              3.5M lbs
-            </div>
-          </div>
-
-          <div className="mt-6 pt-4">
-            <div className="text-xs font-semibold text-[#4E7882]">
-              + 40% more families reached
-            </div>
-            <p className="text-xs sm:text-[13px] text-[#1B2418]/80 leading-relaxed font-normal mt-1">
-              Up to 90% of donations go directly to aid.
+            <p className="text-[11px] sm:text-xs text-[#5C6B55] mt-2 leading-relaxed">
+              {stat.desc}
             </p>
           </div>
+        ))}
+      </div>
+
+      {/* 3. THREE SOPHISTICATED BENTO CARDS */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
+        {/* Card 1: Water Sovereignty & Springs */}
+        <div className="bg-[#F8FAF6] hover:bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-[#1F2B1A]/10 hover:border-[#829461]/40 shadow-2xs hover:shadow-md transition-all duration-300">
+          <div>
+            <div className="flex items-center justify-between">
+              <div className="w-10 h-10 rounded-xl bg-white border border-[#1F2B1A]/10 shadow-2xs flex items-center justify-center text-[#4E7882]">
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                </svg>
+              </div>
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#EFF4E8] text-[#526639] border border-[#A9B689]/40">
+                Water Sovereignty
+              </span>
+            </div>
+
+            <div className="mt-6">
+              <div className="text-3xl sm:text-4xl font-serif font-bold text-[#1F2B1A] tracking-tight">
+                13,500 L
+              </div>
+              <div className="text-xs sm:text-sm font-bold text-[#2E3D27] mt-1">
+                Zero-Power Gravity Storage
+              </div>
+              <p className="text-xs sm:text-[13px] text-[#5C6B55] leading-relaxed mt-2.5">
+                Reviving perennial mountain springs in Rasabeda and restoring silted tribal ponds like Gudibandh Talab to supply potable water without diesel or electricity.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-[#1F2B1A]/8 flex items-center justify-between">
+            <span className="text-[11px] font-semibold text-[#526639] bg-[#EFF4E8] px-2.5 py-0.5 rounded-md">
+              40+ Wells Recharged
+            </span>
+            <button
+              onClick={() => scrollToAnchor("water-ride")}
+              className="text-xs font-semibold text-[#1F2B1A] hover:text-[#526639] flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              <span>Explore Route</span>
+              <span>→</span>
+            </button>
+          </div>
         </div>
 
-        {/* Card 2 (Middle): Image Bento Card */}
-        <div className="relative overflow-hidden rounded-3xl min-h-[260px] sm:min-h-[290px] flex flex-col justify-between p-6 shadow-md text-white">
+        {/* Card 2: Centerpiece Village Photo Card */}
+        <div className="relative overflow-hidden rounded-3xl min-h-[320px] flex flex-col justify-between p-6 sm:p-7 shadow-md text-white group">
           <Image
             src="/images/section2-village-water.jpg"
-            alt="Rural community child"
+            alt="Rural community water council gathering under village tree"
             fill
             loading="lazy"
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover object-center"
+            className="object-cover object-center group-hover:scale-103 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex items-center justify-between">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-semibold border border-white/25">
               <span>★</span>
-              <span>Trusted by 500+ donors</span>
+              <span>Participatory Gram Sabha</span>
             </span>
           </div>
 
           <div className="relative z-10 mt-auto pt-6">
-            <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              25,000
+            <div className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+              38+ Hamlets
             </div>
-            <div className="text-xs sm:text-[13px] text-white/90 font-medium mt-0.5">
-              Students educated
+            <div className="text-xs sm:text-sm font-semibold text-white/95 mt-1">
+              Distress Migration Ended
+            </div>
+            <p className="text-xs text-white/80 leading-relaxed mt-2">
+              Empowering Santhal and Munda tribal families to manage water commons collaboratively and retain food sovereignty year-round.
+            </p>
+            <div className="mt-4 pt-3 border-t border-white/20">
+              <button
+                onClick={() => scrollToAnchor("impact")}
+                className="text-xs font-semibold text-[#F8FAF6] hover:text-[#A9B689] flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <span>Read Verified Case Studies</span>
+                <span>→</span>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Card 3 (Right): Light Green Sprout Tint */}
-        <div className="bg-[#EFF4E8] rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-[#829461]/15 shadow-xs min-h-[260px] sm:min-h-[290px]">
-          <div className="flex items-center justify-between">
-            <div className="text-2xl sm:text-3xl font-bold text-[#1F2B1A] tracking-tight">
-              85%
+        {/* Card 3: Sustainable Livelihood & Education */}
+        <div className="bg-[#F8FAF6] hover:bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-[#1F2B1A]/10 hover:border-[#829461]/40 shadow-2xs hover:shadow-md transition-all duration-300">
+          <div>
+            <div className="flex items-center justify-between">
+              <div className="w-10 h-10 rounded-xl bg-white border border-[#1F2B1A]/10 shadow-2xs flex items-center justify-center text-[#6C7D51]">
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2v-2zm0-10h2v8h-2V6z" />
+                </svg>
+              </div>
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#EFF4E8] text-[#526639] border border-[#A9B689]/40">
+                Green Livelihoods
+              </span>
             </div>
-            <div className="w-10 h-10 rounded-full bg-white shadow-xs flex items-center justify-center text-[#829461]">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2v-2zm0-10h2v8h-2V6z" />
-              </svg>
+
+            <div className="mt-6">
+              <div className="text-3xl sm:text-4xl font-serif font-bold text-[#1F2B1A] tracking-tight">
+                12,000+
+              </div>
+              <div className="text-xs sm:text-sm font-bold text-[#2E3D27] mt-1">
+                Youth &amp; Farmers Trained
+              </div>
+              <p className="text-xs sm:text-[13px] text-[#5C6B55] leading-relaxed mt-2.5">
+                Incubating women-run sal-leaf plate micro-enterprises, organic multi-crop farming, and training youth barefoot water engineers to test and safeguard village aquifers.
+              </p>
             </div>
           </div>
 
-          <div className="mt-4">
-            <h3 className="font-serif text-base font-bold text-[#1F2B1A]">
-              Community health
-            </h3>
-            <p className="text-xs text-[#5C6B55] mt-1 font-medium">
-              + 120 communities served
-            </p>
-
-            <div className="flex items-center gap-2 mt-5">
-              <button
-                onClick={() => scrollToAnchor("programs")}
-                className="px-3.5 py-1.5 rounded-full bg-white text-[#1F2B1A] text-xs font-semibold shadow-xs border border-[#1F2B1A]/10 hover:bg-[#F8FAF6] transition-colors cursor-pointer"
-              >
-                View health
-              </button>
-              <button
-                onClick={() => scrollToAnchor("programs")}
-                className="px-3.5 py-1.5 rounded-full bg-[#829461] text-white text-xs font-semibold shadow-xs hover:bg-[#6E824F] transition-colors cursor-pointer"
-              >
-                initiatives
-              </button>
-            </div>
+          <div className="mt-6 pt-4 border-t border-[#1F2B1A]/8 flex items-center justify-between">
+            <span className="text-[11px] font-semibold text-[#526639] bg-[#EFF4E8] px-2.5 py-0.5 rounded-md">
+              3x Household Income
+            </span>
+            <button
+              onClick={() => scrollToAnchor("programs")}
+              className="text-xs font-semibold text-[#1F2B1A] hover:text-[#526639] flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              <span>View Programs</span>
+              <span>→</span>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* 4. SECOND STORY SUBSECTION (Overlapping Images + Narrative Copy) */}
-      {!isInsideHeroCard && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mt-6 sm:mt-10 pt-8 sm:pt-12 border-t border-[#1F2B1A]/10">
-          {/* Left: Overlapping Photos */}
-          <div className="lg:col-span-6 relative w-full max-w-md mx-auto">
-            <div className="relative aspect-[4/5] rounded-[32px] overflow-hidden shadow-xl bg-slate-100">
-              <Image
-                src="/images/IMG_2883.JPG"
-                alt="Rural village child smiling"
-                fill
-                loading="lazy"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-              />
-            </div>
-
-            {/* Overlapping Secondary Photo */}
-            <div className="absolute -bottom-6 -right-3 sm:-right-6 w-36 h-36 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-4 border-[#F8FAF6] shadow-2xl bg-white">
-              <Image
-                src="/images/IMG_3468.JPG"
-                alt="Village education and health activities"
-                fill
-                loading="lazy"
-                sizes="(max-width: 640px) 144px, 192px"
-                className="object-cover object-center"
-              />
-            </div>
+      {/* 4. GROUNDED PHILOSOPHY & GRASSROOTS CALL-TO-ACTION */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center pt-8 sm:pt-12 border-t border-[#1F2B1A]/10">
+        {/* Left: Overlapping Authentic Photos */}
+        <div className="lg:col-span-5 relative w-full max-w-md mx-auto">
+          <div className="relative aspect-[4/5] rounded-[28px] overflow-hidden shadow-lg border border-[#1F2B1A]/10 bg-[#EFF4E8]">
+            <Image
+              src="/images/IMG_2883.JPG"
+              alt="Rural village child smiling"
+              fill
+              loading="lazy"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-center"
+            />
           </div>
 
-          {/* Right: Narrative + Get in touch + Huge 25+ Stat */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <div>
-              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-[36px] text-[#1F2B1A] leading-[1.22] tracking-tight">
-                From rural healthcare access to modern classroom for inclusive
-                social development
-              </h3>
-
-              <p className="text-sm sm:text-base text-[#5C6B55] leading-relaxed mt-4 max-w-lg font-normal">
-                Connecting healthcare and education to uplift rural communities
-                and create inclusive, long-term social transformation worldwide.
-              </p>
-
-              <div className="mt-6">
-                <button
-                  onClick={() => scrollToAnchor("contact")}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EFF4E8] hover:bg-[#E4ECE0] text-[#1F2B1A] border border-[#1F2B1A]/15 text-xs font-semibold tracking-wide transition-all shadow-xs cursor-pointer"
-                >
-                  <span>Get in touch</span>
-                  <span className="text-sm">↗</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-end justify-between mt-10 pt-6 border-t border-[#1F2B1A]/10">
-              <button
-                onClick={() => scrollToAnchor("about")}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1F2B1A] hover:text-[#829461] transition-colors cursor-pointer pb-1"
-              >
-                <span>Community support</span>
-                <span>→</span>
-              </button>
-
-              <div className="text-right">
-                <div className="text-5xl sm:text-6xl font-extrabold text-[#1F2B1A] tracking-tight leading-none">
-                  25+
-                </div>
-                <div className="text-xs text-[#5C6B55] mt-1 font-medium">
-                  Years of proven experience
-                </div>
-              </div>
-            </div>
+          {/* Overlapping Secondary Photo */}
+          <div className="absolute -bottom-5 -right-3 sm:-right-5 w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-white">
+            <Image
+              src="/images/IMG_3468.JPG"
+              alt="Village education and health activities"
+              fill
+              loading="lazy"
+              sizes="(max-width: 640px) 144px, 176px"
+              className="object-cover object-center"
+            />
           </div>
         </div>
-      )}
+
+        {/* Right: Narrative + Partnership CTA */}
+        <div className="lg:col-span-7 flex flex-col justify-between gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFF4E8] text-[#526639] text-xs font-semibold tracking-wide border border-[#A9B689]/30">
+              <span>Change From Within</span>
+            </div>
+
+            <h3 className="mt-3 font-serif font-bold text-2xl sm:text-3xl lg:text-[34px] text-[#1F2B1A] leading-[1.25] tracking-tight">
+              Building Self-Reliant Institutions That Outlast Any Single Project
+            </h3>
+
+            <p className="mt-4 text-sm sm:text-base text-[#5C6B55] leading-relaxed font-normal">
+              Sustainable rural transformation cannot be imported or imposed from the outside. By establishing village-level water user committees, training local barefoot caretakers, and revitalizing indigenous water structures, GRAM ensures that communities maintain full stewardship and ownership of their ecological resources.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                onClick={() => {
+                  setContactInterest("CSR Partnership");
+                  scrollToAnchor("contact");
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#2E3D27] hover:bg-[#1F2B1A] text-[#F8FAF6] text-xs font-semibold tracking-wider uppercase transition-all shadow-sm hover:scale-102 active:scale-98 cursor-pointer"
+              >
+                <span>Partner With GRAM</span>
+                <span className="text-sm">↗</span>
+              </button>
+
+              <button
+                onClick={() => scrollToAnchor("programs")}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#EFF4E8] hover:bg-[#E4ECE0] text-[#1F2B1A] border border-[#1F2B1A]/15 text-xs font-semibold tracking-wide transition-all cursor-pointer"
+              >
+                <span>Explore All Programs</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-[#1F2B1A]/8 flex items-center justify-between text-xs text-[#5C6B55]">
+            <span className="font-medium">Direct Field Impact Across Jharkhand &amp; Odisha</span>
+            <span className="font-semibold text-[#2E3D27]">100% Values-Aligned</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
