@@ -598,7 +598,7 @@ export default function WaterRideLeafletMap() {
       </div>
 
       {/* 2. Main 3-Column Experience Grid (Calibrated height to fit in one screen) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch h-[calc(100vh-175px)] min-h-[460px] max-h-[580px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch h-[calc(100vh-130px)] min-h-[500px] max-h-[720px]">
         
         {/* ========================================================= */}
         {/* A. LEFT SIDEBAR: Expedition Itinerary (3 cols)             */}

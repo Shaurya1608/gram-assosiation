@@ -7,21 +7,6 @@ import dynamic from "next/dynamic";
 import FocusAreasRadial from "@/components/FocusAreasRadial";
 import LastingImpactSection from "@/components/LastingImpactSection";
 
-const WaterRideLeafletMap = dynamic(
-  () => import("@/components/WaterRideLeafletMap"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[700px] rounded-3xl bg-[#EFF4E8]/50 flex flex-col items-center justify-center gap-3 border border-[#1F2B1A]/10">
-        <span className="w-7 h-7 border-2 border-[#526639] border-t-transparent rounded-full animate-spin" />
-        <span className="text-xs font-serif italic text-[#526639]">
-          Loading High-Resolution India Highway Map...
-        </span>
-      </div>
-    ),
-  }
-);
-
 // 22-point polygon interpolations for smooth CSS clip-path morphing
 const FLAT_POLYGON =
   "polygon(0% 0%, 10% 0%, 20% 0%, 30% 0%, 40% 0%, 50% 0%, 60% 0%, 70% 0%, 80% 0%, 90% 0%, 100% 0%, 100% 100%, 90% 100%, 80% 100%, 70% 100%, 60% 100%, 50% 100%, 40% 100%, 30% 100%, 20% 100%, 10% 100%, 0% 100%)";
@@ -638,13 +623,13 @@ export default function Home() {
             <span className="text-[11px] font-semibold text-[#526639] bg-[#EFF4E8] px-2.5 py-0.5 rounded-md">
               40+ Wells Recharged
             </span>
-            <button
-              onClick={() => scrollToAnchor("water-ride")}
+            <Link
+              href="/water-ride"
               className="text-xs font-semibold text-[#1F2B1A] hover:text-[#526639] flex items-center gap-1 transition-colors cursor-pointer"
             >
               <span>Explore Route</span>
               <span>→</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -877,14 +862,14 @@ export default function Home() {
             >
               Impact
             </button>
-            <button
-              onClick={() => scrollToAnchor("water-ride")}
+            <Link
+              href="/water-ride"
               className={`transition-colors cursor-pointer ${
                 isScrolled ? "text-[#5C6B55] hover:text-[#1F2B1A]" : "text-white/80 hover:text-white"
               }`}
             >
               Water Ride
-            </button>
+            </Link>
           </nav>
 
           {/* Center Brand Logo / Wordmark */}
@@ -901,14 +886,14 @@ export default function Home() {
 
           {/* Right Nav Links & Actions (Desktop) */}
           <div className="hidden lg:flex items-center gap-5">
-            <button
-              onClick={() => scrollToAnchor("water-ride")}
+            <Link
+              href="/water-ride"
               className={`text-xs sm:text-[13px] font-medium transition-colors cursor-pointer ${
                 isScrolled ? "text-[#5C6B55] hover:text-[#1F2B1A]" : "text-white/80 hover:text-white"
               }`}
             >
               Expedition
-            </button>
+            </Link>
             <button
               onClick={() => scrollToAnchor("contact")}
               className={`text-xs sm:text-[13px] font-medium transition-colors cursor-pointer ${
@@ -1016,15 +1001,13 @@ export default function Home() {
           >
             Lasting Impact
           </button>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              scrollToAnchor("water-ride");
-            }}
+          <Link
+            href="/water-ride"
+            onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium py-1.5 text-white/80 hover:text-white"
           >
             The Water Ride
-          </button>
+          </Link>
           <button
             onClick={() => {
               setMobileMenuOpen(false);
@@ -1261,17 +1244,72 @@ export default function Home() {
       />
 
       {/* ============================================================ */}
-      {/* SECTION 3: THE WATER RIDE (Interactive Expedition Map)       */}
+      {/* SECTION 3: THE WATER RIDE (National Expedition Showcase)     */}
       {/* ============================================================ */}
-      {/* ============================================================ */}
-      {/* SECTION 3: THE WATER RIDE (Single-Screen Interactive Map)    */}
-      {/* ============================================================ */}
-      <section id="water-ride" className="w-full bg-white py-4 sm:py-6 px-3 sm:px-6 md:px-8 border-b border-[#1F2B1A]/10">
-        <div className="w-full max-w-[1580px] mx-auto flex flex-col gap-3">
-          
-          {/* Interactive Road Navigation System */}
-          <WaterRideLeafletMap />
+      <section id="water-ride" className="w-full bg-[#F8FAF6] py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-b border-[#1F2B1A]/10">
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <div className="relative rounded-3xl overflow-hidden bg-[#1F2B1A] text-white p-7 sm:p-12 lg:p-16 border border-[#1F2B1A]/10 shadow-xl">
+            {/* Ambient Background Image */}
+            <Image
+              src="/images/water-ride-expedition.jpg"
+              alt="The Water Ride Expedition Motorcycle"
+              fill
+              loading="lazy"
+              sizes="100vw"
+              className="object-cover object-center opacity-30 mix-blend-luminosity pointer-events-none select-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1F2B1A] via-[#1F2B1A]/90 to-transparent" />
 
+            <div className="relative z-10 max-w-2xl flex flex-col items-start gap-4 sm:gap-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF4E8]/20 backdrop-blur-md text-[#A9B689] text-xs font-semibold tracking-wide border border-[#A9B689]/30">
+                <span className="w-2 h-2 rounded-full bg-[#A9B689] animate-pulse" />
+                <span>National Expedition Corridor</span>
+              </div>
+
+              <h2 className="font-serif font-bold text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.18]">
+                7,200 KM Across 9 States. <br className="hidden sm:inline" />
+                <span className="text-[#A9B689] font-normal italic">Mapping India&apos;s Water Wisdom.</span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-white/80 leading-relaxed font-normal">
+                A 64-day cross-country motorcycle odyssey through 30 destinations—from the arid stepwells (baoris) of Rajasthan to Deccan tanks, Kerala watershed canals, and Eastern ghat springs—documenting how rural communities preserve every drop.
+              </p>
+
+              {/* 4 Badges */}
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
+                <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 font-medium">
+                  🏍️ 64 Days On The Road
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 font-medium">
+                  📍 30 Pit Stops &amp; Hubs
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 font-medium">
+                  🗺️ 9 Indian States
+                </span>
+                <span className="px-3 py-1 rounded-full bg-[#A9B689] text-[#1F2B1A] font-bold">
+                  🛣️ 7,200 KM Traversed
+                </span>
+              </div>
+
+              {/* Launch Dedicated Page CTA */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/water-ride"
+                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#A9B689] hover:bg-[#B8C59A] text-[#1F2B1A] text-xs font-bold tracking-wider uppercase transition-all shadow-md hover:scale-102 active:scale-98 cursor-pointer"
+                >
+                  <span>Launch Interactive Expedition Map</span>
+                  <span className="text-sm font-bold">↗</span>
+                </Link>
+                <Link
+                  href="/water-ride"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-semibold tracking-wide transition-all cursor-pointer"
+                >
+                  <span>View Full Route</span>
+                  <span>→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1610,9 +1648,9 @@ export default function Home() {
             <button onClick={() => scrollToAnchor("programs")} className="hover:text-[#A9B689] cursor-pointer transition-colors">
               Programs
             </button>
-            <button onClick={() => scrollToAnchor("water-ride")} className="hover:text-[#A9B689] cursor-pointer transition-colors">
+            <Link href="/water-ride" className="hover:text-[#A9B689] cursor-pointer transition-colors">
               Water Ride
-            </button>
+            </Link>
           </div>
         </div>
 
